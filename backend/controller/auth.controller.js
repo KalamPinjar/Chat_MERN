@@ -22,8 +22,7 @@ export const signupUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(String(password), salt);
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const profilePic = `https://ui-avatars.com/api/?name={username}&background=random`;
 
     const newUser = new User({
       _id: new mongoose.Types.ObjectId(),
@@ -31,7 +30,7 @@ export const signupUser = async (req, res) => {
       username,
       password: hashedPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic: profilePic,
     });
 
     if (newUser) {
